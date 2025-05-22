@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reservation_parties_communes_nemea/pages/Booking.dart';
+import 'package:reservation_parties_communes_nemea/services/AuthGate.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: Booking(),
+      home: AuthGate(),
     );
   }
 }
