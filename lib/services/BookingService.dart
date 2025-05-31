@@ -29,13 +29,11 @@ class BookingService {
   }
 
   // Method to get bookings for a specific user
-  Future<List<Map<String, dynamic>>> getBookingsForUser(String userId) async {
-    final response = await _supabase
-        .from('Bookings')
-        .select()
-        .eq('user_id', userId);
-
-    return response;
+  getBookingsForUser(String userId) async {
+    return await _supabase
+            .from('Bookings')
+            .select('*, Profiles(name)')
+            .eq('UUID', userId);
   }
 
 }
