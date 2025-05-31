@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reservation_parties_communes_nemea/pages/Booking.dart';
 import 'package:reservation_parties_communes_nemea/services/AuthGate.dart';
+import 'package:reservation_parties_communes_nemea/services/SpaceService.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -12,11 +13,16 @@ Future<void> main() async {
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxsY3dhc2tucWhsaWV4ZXdzbXpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5ODYwMzMsImV4cCI6MjA2MDU2MjAzM30.R-YRydVBHTzDOoDyh7ZFjDoIjFMMdx4PVrQdeEpzjyE',
   );
 
-  final _future = await supabase
-      .from('Space')
-      .select();
-
-  print('----------------------nemea spaces are : $_future');
+  print('Fetching space details for id 1...');
+  SpaceService().getSpaceDetails(1).then((value) {
+    if (value == null) {
+      print('Warning: Received null response. Check query criteria and Supabase table entries.');
+    } else {
+      print('Space details: $value');
+    }
+  }).catchError((error) {
+    print('Error fetching space details: $error');
+  });
 
   runApp(MyApp());
 }

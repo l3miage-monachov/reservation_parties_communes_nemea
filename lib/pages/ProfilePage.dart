@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reservation_parties_communes_nemea/pages/RegisterPage.dart';
 import 'package:reservation_parties_communes_nemea/services/AuthService.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -11,7 +12,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final AuthService _authService = AuthService();
 
-  void logout () async {
+  void logout() async {
     _authService.signOut();
   }
 
@@ -21,16 +22,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Profile"),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: logout,
-            ),
-          ],
+        title: const Text("Profile"),
+        actions: [
+          IconButton(icon: const Icon(Icons.logout), onPressed: logout),
+        ],
       ),
-
-      body: Center(child: Text(currentEmail.toString())),
     );
   }
 }
