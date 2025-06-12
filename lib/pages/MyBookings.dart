@@ -216,12 +216,16 @@ class _MyBookingsState extends State<MyBookings> {
                       trailing: PopupMenuButton<String>(
                         onSelected: (value) {
                           if (value == 'cancel') {
-                            // TODO: Implémenter l'annulation
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Fonctionnalité d\'annulation à implémenter'),
-                              ),
-                            );
+                            BookingService().deleteBooking(booking['id']).then((_) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Réservation annulée')),
+                              );
+                              _loadBookings(); // Recharger les réservations
+                            }).catchError((error) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Erreur: $error')),
+                              );
+                            });
                           }
                         },
                         itemBuilder: (BuildContext context) => [

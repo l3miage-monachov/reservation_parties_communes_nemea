@@ -127,4 +127,15 @@ class BookingService {
       throw Exception('Failed to get bookings: $e');
     }
   }
+
+  // Méthode pour supprimer une réservation
+  Future<void> deleteBooking(int bookingId) async {
+    try {
+      final response = await _supabase.from('Bookings').delete().eq('id', bookingId);
+      print('Booking deleted successfully');
+    } catch (e) {
+      print('Error deleting booking: $e');
+      throw Exception('Failed to delete booking: $e');
+    }
+  }
 }
