@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reservation_parties_communes_nemea/pages/Booking.dart';
+import 'package:reservation_parties_communes_nemea/pages/AddBookingPage.dart';
 import 'package:reservation_parties_communes_nemea/pages/MyBookings.dart';
 
 import 'ProfilePage.dart';
