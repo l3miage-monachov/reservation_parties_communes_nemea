@@ -45,4 +45,13 @@ class AuthService {
     final user = session?.user;
     return user?.email;
   }
+
+  getUserFromUUID(String uuid) async {
+    return await _supabase
+        .from('Profiles')
+        .select('id')
+        .eq('UUID', uuid)
+        .single();
+  }
+
 }
