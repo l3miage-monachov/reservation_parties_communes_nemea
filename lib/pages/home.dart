@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:reservation_parties_communes_nemea/pages/AddBookingPage.dart';
 import 'package:reservation_parties_communes_nemea/pages/MyBookings.dart';
+import 'package:reservation_parties_communes_nemea/pages/HomePage.dart'; // Nouvelle import
 
 import 'ProfilePage.dart';
 import 'RegisterPage.dart';
 
 class Home extends StatefulWidget {
-const Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
-  }
+}
 
 class _HomeState extends State<Home> {
   int currentPageIndex = 0;
@@ -19,7 +20,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: currentPageIndex == 0
-          ? AppBar(title: const Text('Home'))
+          ? AppBar(
+        title: const Text('Accueil'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Theme.of(context).primaryColor,
+      )
           : null,
 
       bottomNavigationBar: NavigationBar(
@@ -34,37 +40,48 @@ class _HomeState extends State<Home> {
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
             icon: Icon(Icons.home_outlined),
-            label: 'Home',
+            label: 'Accueil',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.calendar_today)),
-            label: 'my bookings',
+            selectedIcon: Icon(Icons.calendar_month),
+            icon: Icon(Icons.calendar_today_outlined),
+            label: 'Mes réservations',
           ),
           NavigationDestination(
-            icon: Badge(label: Text('2'), child: Icon(Icons.person)),
-            label: 'Profile',
+            selectedIcon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
+            label: 'Profil',
           ),
         ],
       ),
 
-      body:
-      <Widget>[
-        /// Home page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(child: Center(child: Text('Home page'))),
-        ),
+      body: <Widget>[
+        /// Home page - Nouvelle page d'accueil
+        const HomePage(),
 
-        // My bookings page
+        /// My bookings page
         const MyBookings(),
 
-        // call the ProfilePage.dart class
+        /// Profile page
         const ProfilePage()
-
       ][currentPageIndex],
+
+      // FAB pour créer une réservation rapidement
+      floatingActionButton: currentPageIndex == 0
+          ? FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddBookingPage(),
+            ),
+          );
+        },
+        backgroundColor: Colors.amber,
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.add),
+      )
+          : null,
     );
   }
-
-
 }
