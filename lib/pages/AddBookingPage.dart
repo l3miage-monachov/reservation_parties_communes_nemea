@@ -1,4 +1,3 @@
-// Page principale pour ajouter une réservation
 import 'package:flutter/material.dart';
 import 'package:reservation_parties_communes_nemea/services/AuthService.dart';
 import 'package:reservation_parties_communes_nemea/services/BookingService.dart';
@@ -15,7 +14,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  // Données de la réservation
   String? selectedSpaceId;
   String? selectedSpaceName;
   DateTime? selectedDate;
@@ -23,7 +21,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
   TimeOfDay? endTime;
   int userId = 0;
 
-  // Nouvelles variables pour la gestion des conflits
   List<Map<String, dynamic>> occupiedSlots = [];
   List<Map<String, String>> suggestedSlots = [];
   bool isCheckingConflicts = false;
@@ -69,7 +66,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
     }
   }
 
-  // Nouvelle méthode pour charger les créneaux occupés
   Future<void> _loadOccupiedSlots() async {
     if (selectedSpaceId == null || selectedDate == null) return;
 
@@ -86,7 +82,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
     }
   }
 
-  // Vérifier les conflits en temps réel lors de la sélection d'horaires
   Future<void> _checkTimeConflicts() async {
     if (selectedSpaceId == null || selectedDate == null || startTime == null || endTime == null) {
       setState(() {
@@ -233,7 +228,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
       ),
       body: Column(
         children: [
-          // Indicateur de progression
           Container(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -254,7 +248,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
             ),
           ),
 
-          // Contenu des pages
           Expanded(
             child: PageView(
               controller: _pageController,
@@ -262,7 +255,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
                 setState(() {
                   _currentPage = index;
                 });
-                // Charger les créneaux occupés quand on arrive sur la page de sélection d'heure
                 if (index == 2) {
                   _loadOccupiedSlots();
                 }
@@ -276,7 +268,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
             ),
           ),
 
-          // Boutons de navigation
           Container(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -408,7 +399,6 @@ class _AddBookingPageState extends State<AddBookingPage> {
                 onDateChanged: (date) {
                   setState(() {
                     selectedDate = date;
-                    // Reset les données de temps si on change de date
                     occupiedSlots.clear();
                     suggestedSlots.clear();
                     startTime = null;

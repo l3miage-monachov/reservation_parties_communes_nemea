@@ -29,10 +29,14 @@ class AuthService {
 
   //sign up with email and password
   Future<AuthResponse> signUpWithEmailAndPassword(String email, String password) async {
-    return await _supabase.auth.signUp(
+    final response = await _supabase.auth.signUp(
       email: email,
       password: password,
     );
+    if (response.user != null) {
+      await createUserProfile(response.user!.id, null, email);
+    }
+    return response;
   }
 
   //Sign out

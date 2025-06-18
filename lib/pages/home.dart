@@ -56,17 +56,13 @@ class _HomeState extends State<Home> {
       ),
 
       body: <Widget>[
-        /// Home page - Nouvelle page d'accueil
         const HomePage(),
 
-        /// My bookings page
         const MyBookings(),
 
-        /// Profile page
         const ProfilePage()
       ][currentPageIndex],
 
-      // FAB pour créer une réservation rapidement
       floatingActionButton: currentPageIndex == 0
           ? FloatingActionButton(
         onPressed: () {
